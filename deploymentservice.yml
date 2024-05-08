@@ -1,12 +1,12 @@
 apiVersion: apps/v1
-kind: Deployment # Kubernetes resource kind we are creating
+kind: Deployment
 metadata:
   name: ekart-deployment
 spec:
   selector:
     matchLabels:
       app: ekart
-  replicas: 2 # Number of replicas that will be created for this deployment
+  replicas: 2
   template:
     metadata:
       labels:
@@ -14,37 +14,23 @@ spec:
     spec:
       containers:
         - name: ekart
-          image: guruprasadkm2000/ekart:latest # Image that will be used to containers in the cluster
+          image: guruprasadkm2000/ekart:latest
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 8070 # The port that the container is running on in the cluster
-          resources:
-            requests: 
-            cpu: "0.5" 
-            memory: "700Mi"
-          limits:
-            cpu: "1"
-            memory: "1Gi"
+            - containerPort: 8070
+          
 
 ---
 
-apiVersion: v1 # Kubernetes API version
-kind: Service # Kubernetes resource kind we are creating
-metadata: # Metadata of the resource kind we are creating
+apiVersion: v1
+kind: Service
+metadata:
   name: ekart-ssvc
 spec:
   selector:
     app: ekart
   ports:
-    - protocol: "TCP"
-      port: 8070 # The port that the service is running on in the cluster
-      targetPort: 8070 # The port exposed by the service
-  type: NodePort # type of the service.
-          resources:
-            requests: 
-            cpu: "0.5" 
-            memory: "700Mi"
-          limits:
-            cpu: "1"
-            memory: "1Gi"  
-  
+    - protocol: TCP
+      port: 8070
+      targetPort: 8070
+  type: NodePort
