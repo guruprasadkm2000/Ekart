@@ -40,4 +40,11 @@ spec:
       port: 8070 # The port that the service is running on in the cluster
       targetPort: 8070 # The port exposed by the service
   type: NodePort # type of the service.
+          resources:
+            requests: 
+            cpu: "0.5" 
+            memory: "700Mi"
+          limits:
+            cpu: "1"
+            memory: "1Gi"  
   
